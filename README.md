@@ -1,7 +1,9 @@
 # Bella Vista Salon – Appointment Booking Prototype
 
 **Project:** Bella Vista Salon
+
 **Location:** Coral Gables, Florida
+
 **Developer:** Waqar Javed
 
 ## 1. Project Overview
