@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book an Appointment | Bella Vista Salon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+      [data-theme="light"],
+      :root:not([data-theme="dark"]) {
+        --pico-primary: #42634f;
+        --pico-primary-background: #42634f;
+        --pico-primary-border: #42634f;
+
+        --pico-primary-hover: #34513f;
+        --pico-primary-hover-background: #34513f;
+        --pico-primary-hover-border: #34513f;
+
+        --pico-primary-focus: rgba(66, 99, 79, 0.2);
+        --pico-primary-inverse: #fff;
+      }
+
+      body {
+        background: #faf8f4;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #fff;
+      }
+
+      .site-header nav {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        color: #293d31;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        padding-block: 3rem;
+      }
+
+      .page-intro {
+        margin-bottom: 2rem;
+      }
+
+      .booking-form {
+        max-width: 48rem;
+        margin-inline: auto;
+      }
+
+      .time-slots {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 0;
+      }
+
+      .time-slots button {
+        margin: 0;
+      }
+
+      .time-slots button:disabled {
+        background: #e8e5df;
+        border-color: #d3cfc7;
+        color: #686760;
+        opacity: 1;
+        cursor: not-allowed;
+      }
+
+      .availability-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .availability-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .legend-swatch {
+        width: 0.9rem;
+        height: 0.9rem;
+        border: 1px solid var(--pico-primary-border);
+        border-radius: 0.2rem;
+        background: var(--pico-primary-background);
+      }
+
+      .legend-swatch.unavailable {
+        border-color: #d3cfc7;
+        background: #e8e5df;
+      }
+
+      .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .form-actions a {
+        margin-bottom: 0;
+      }
+
+      .site-footer {
+        padding-block: 1rem;
+        text-align: center;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        .time-slots {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="Main navigation">
+        <a class="brand" href="services.html">Bella Vista Salon</a>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="my-appointments.html">My Appointments</a></li>
+          <li><a href="staff-calendar.html">Staff Calendar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <header class="page-intro">
+        <h1>Book an Appointment</h1>
+        <p>Select your service, preferred date, and available time.</p>
+      </header>
+
+      <form class="booking-form">
+        <label for="service">Select a Service</label>
+        <select id="service" name="service">
+          <option selected>Haircut</option>
+          <option>Hair Coloring</option>
+          <option>Hair Styling</option>
+          <option>Manicure</option>
+        </select>
+
+        <label for="appointment-date">Choose Appointment Date</label>
+        <input
+          type="date"
+          id="appointment-date"
+          name="appointment-date"
+          aria-describedby="time-slot-note"
+        >
+
+        <fieldset>
+          <legend>Available Appointment Times</legend>
+          <p id="time-slot-note">Displayed times are illustrative prototype data.</p>
+          <div class="time-slots">
+            <button type="button">9:00 AM</button>
+            <button type="button">10:00 AM</button>
+            <button type="button" disabled aria-label="11:00 AM, unavailable">11:00 AM</button>
+            <button type="button">1:00 PM</button>
+            <button type="button">2:00 PM</button>
+            <button type="button">3:00 PM</button>
+          </div>
+        </fieldset>
+
+        <div class="availability-legend" aria-label="Time slot availability legend">
+          <span><span class="legend-swatch" aria-hidden="true"></span>Available</span>
+          <span><span class="legend-swatch unavailable" aria-hidden="true"></span>Unavailable</span>
+        </div>
+
+        <nav class="form-actions" aria-label="Booking actions">
+          <a href="services.html">Back to Services</a>
+          <a href="review-confirm.html" role="button">Continue</a>
+        </nav>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <p>Coral Gables, Florida</p>
+    </footer>
+  </body>
+</html>
