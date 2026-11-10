@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review Your Appointment | Bella Vista Salon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+      [data-theme="light"],
+      :root:not([data-theme="dark"]) {
+        --pico-primary: #42634f;
+        --pico-primary-background: #42634f;
+        --pico-primary-border: #42634f;
+
+        --pico-primary-hover: #34513f;
+        --pico-primary-hover-background: #34513f;
+        --pico-primary-hover-border: #34513f;
+
+        --pico-primary-focus: rgba(66, 99, 79, 0.2);
+        --pico-primary-inverse: #fff;
+      }
+
+      body {
+        background: #faf8f4;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #fff;
+      }
+
+      .site-header nav {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        color: #293d31;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        padding-block: 3rem;
+      }
+
+      .page-intro {
+        margin-bottom: 2rem;
+      }
+
+      .review-content {
+        max-width: 48rem;
+        margin-inline: auto;
+      }
+
+      .appointment-summary {
+        margin-bottom: 2rem;
+      }
+
+      .appointment-summary h2,
+      .client-information h2 {
+        font-size: 1.35rem;
+      }
+
+      .appointment-details {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem 2rem;
+        margin: 0;
+      }
+
+      .appointment-details div {
+        min-width: 0;
+      }
+
+      .appointment-details dt {
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .appointment-details dd {
+        margin: 0.25rem 0 0;
+        font-weight: 600;
+      }
+
+      .sample-note {
+        margin: 1rem 0 0;
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .booking-notice {
+        padding: 1rem;
+        border-left: 0.25rem solid var(--pico-primary);
+        background: #fff;
+      }
+
+      .booking-notice p {
+        margin-bottom: 0.5rem;
+      }
+
+      .booking-notice p:last-child {
+        margin-bottom: 0;
+      }
+
+      .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .form-actions a {
+        margin-bottom: 0;
+      }
+
+      .site-footer {
+        padding-block: 1rem;
+        text-align: center;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        .appointment-details {
+          grid-template-columns: 1fr;
+          gap: 0.75rem;
+        }
+
+        .form-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="Main navigation">
+        <a class="brand" href="services.html">Bella Vista Salon</a>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="my-appointments.html">My Appointments</a></li>
+          <li><a href="staff-calendar.html">Staff Calendar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <header class="page-intro">
+        <h1>Review Your Appointment</h1>
+        <p>Please review your booking details before confirming.</p>
+      </header>
+
+      <div class="review-content">
+        <article class="appointment-summary" aria-labelledby="summary-heading">
+          <h2 id="summary-heading">Appointment Summary</h2>
+          <dl class="appointment-details">
+            <div>
+              <dt>Selected Service</dt>
+              <dd>Hair Coloring</dd>
+            </div>
+            <div>
+              <dt>Description</dt>
+              <dd>Hair coloring and treatment</dd>
+            </div>
+            <div>
+              <dt>Duration</dt>
+              <dd>120 minutes</dd>
+            </div>
+            <div>
+              <dt>Illustrative Price</dt>
+              <dd>$90</dd>
+            </div>
+            <div>
+              <dt>Appointment Date</dt>
+              <dd>November 12, 2026</dd>
+            </div>
+            <div>
+              <dt>Appointment Time</dt>
+              <dd>10:00 AM</dd>
+            </div>
+          </dl>
+          <p class="sample-note">
+            All displayed booking details and prices are illustrative sample information.
+          </p>
+        </article>
+
+        <section class="client-information" aria-labelledby="client-heading">
+          <h2 id="client-heading">Client Information</h2>
+          <form>
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full-name" autocomplete="name">
+
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              aria-describedby="contact-note"
+            >
+
+            <label for="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autocomplete="tel"
+              aria-describedby="contact-note"
+            >
+            <small id="contact-note">
+              Please provide at least one valid contact method: email address or phone number.
+            </small>
+          </form>
+        </section>
+
+        <aside class="booking-notice" aria-label="Booking status and notice">
+          <p>Your appointment request will be submitted for staff confirmation.</p>
+          <p><strong>Booking status:</strong> Pending</p>
+        </aside>
+
+        <nav class="form-actions" aria-label="Appointment actions">
+          <a href="choose-time.html">Back to Availability</a>
+          <a href="my-appointments.html" role="button">Confirm Appointment</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Coral Gables, Florida</p>
+    </footer>
+  </body>
+</html>
