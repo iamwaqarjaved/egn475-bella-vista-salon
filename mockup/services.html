@@ -9,84 +9,91 @@
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     >
     <style>
-      :root {
+        [data-theme="light"],
+        :root:not([data-theme="dark"]) {
         --pico-primary: #42634f;
+        --pico-primary-background: #42634f;
+        --pico-primary-border: #42634f;
+
         --pico-primary-hover: #34513f;
+        --pico-primary-hover-background: #34513f;
+        --pico-primary-hover-border: #34513f;
+
         --pico-primary-focus: rgba(66, 99, 79, 0.2);
         --pico-primary-inverse: #fff;
-      }
+        }
 
-      body {
+        body {
         background: #faf8f4;
-      }
+        }
 
-      .site-header,
-      .site-footer {
+        .site-header,
+        .site-footer {
         background: #fff;
-      }
+        }
 
-      .site-header nav {
+        .site-header nav {
         flex-wrap: wrap;
-      }
+        }
 
-      .brand {
+        .brand {
         color: #293d31;
         font-weight: 700;
         text-decoration: none;
-      }
+        }
 
-      main {
+        main {
         padding-block: 3rem;
-      }
+        }
 
-      .page-intro {
+        .page-intro {
         margin-bottom: 2rem;
-      }
+        }
 
-      .service-grid {
+        .service-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1.25rem;
-      }
+        }
 
-      .service-card {
+        .service-card {
         display: flex;
         flex-direction: column;
         margin: 0;
-      }
+        }
 
-      .service-card h2 {
+        .service-card h2 {
         font-size: 1.35rem;
-      }
+        }
 
-      .service-details {
+        .service-details {
         color: var(--pico-muted-color);
-      }
+        }
 
-      .service-card a[role="button"] {
+        .service-card a[role="button"] {
         margin-top: auto;
-      }
+        }
 
-      .price-note {
+        .price-note {
         margin-top: 1.5rem;
         color: var(--pico-muted-color);
         font-size: 0.9rem;
-      }
+        }
 
-      .site-footer {
+        .site-footer {
         padding-block: 1rem;
         text-align: center;
-      }
-
-      .site-footer p {
-        margin: 0;
-      }
-
-      @media (max-width: 700px) {
-        .service-grid {
-          grid-template-columns: 1fr;
         }
-      }
+
+        .site-footer p {
+        margin: 0;
+        }
+
+        @media (max-width: 700px) {
+        .service-grid {
+            grid-template-columns: 1fr;
+        }
+        }
     </style>
   </head>
   <body>
