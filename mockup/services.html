@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Services | Bella Vista Salon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+      :root {
+        --pico-primary: #42634f;
+        --pico-primary-hover: #34513f;
+        --pico-primary-focus: rgba(66, 99, 79, 0.2);
+        --pico-primary-inverse: #fff;
+      }
+
+      body {
+        background: #faf8f4;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #fff;
+      }
+
+      .site-header nav {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        color: #293d31;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        padding-block: 3rem;
+      }
+
+      .page-intro {
+        margin-bottom: 2rem;
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+
+      .service-card {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+      }
+
+      .service-card h2 {
+        font-size: 1.35rem;
+      }
+
+      .service-details {
+        color: var(--pico-muted-color);
+      }
+
+      .service-card a[role="button"] {
+        margin-top: auto;
+      }
+
+      .price-note {
+        margin-top: 1.5rem;
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .site-footer {
+        padding-block: 1rem;
+        text-align: center;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 700px) {
+        .service-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="Main navigation">
+        <a class="brand" href="services.html">Bella Vista Salon</a>
+        <ul>
+          <li><a href="services.html" aria-current="page">Services</a></li>
+          <li><a href="my-appointments.html">My Appointments</a></li>
+          <li><a href="staff-calendar.html">Staff Calendar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container" id="services">
+      <header class="page-intro">
+        <h1>Our Services</h1>
+        <p>Find the right service for your next visit.</p>
+      </header>
+
+      <section class="service-grid" aria-label="Salon services">
+        <article class="service-card">
+          <h2>Haircut</h2>
+          <p>Professional haircut</p>
+          <p class="service-details">45 minutes <span aria-hidden="true">·</span> $35</p>
+          <a href="choose-time.html" role="button">Book This Service</a>
+        </article>
+
+        <article class="service-card">
+          <h2>Hair Coloring</h2>
+          <p>Hair coloring and treatment</p>
+          <p class="service-details">120 minutes <span aria-hidden="true">·</span> $90</p>
+          <a href="choose-time.html" role="button">Book This Service</a>
+        </article>
+
+        <article class="service-card">
+          <h2>Hair Styling</h2>
+          <p>Professional hair styling</p>
+          <p class="service-details">60 minutes <span aria-hidden="true">·</span> $50</p>
+          <a href="choose-time.html" role="button">Book This Service</a>
+        </article>
+
+        <article class="service-card">
+          <h2>Manicure</h2>
+          <p>Nail care and treatment</p>
+          <p class="service-details">45 minutes <span aria-hidden="true">·</span> $30</p>
+          <a href="choose-time.html" role="button">Book This Service</a>
+        </article>
+      </section>
+
+      <p class="price-note">All prices are illustrative sample prices.</p>
+    </main>
+
+    <footer class="site-footer">
+      <p>Coral Gables, Florida</p>
+    </footer>
+  </body>
+</html>
