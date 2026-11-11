@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff Calendar | Bella Vista Salon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+      [data-theme="light"],
+      :root:not([data-theme="dark"]) {
+        --pico-primary: #42634f;
+        --pico-primary-background: #42634f;
+        --pico-primary-border: #42634f;
+        --pico-primary-hover: #34513f;
+        --pico-primary-hover-background: #34513f;
+        --pico-primary-hover-border: #34513f;
+        --pico-primary-focus: rgba(66, 99, 79, 0.2);
+        --pico-primary-inverse: #fff;
+      }
+
+      body {
+        background: #faf8f4;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #fff;
+      }
+
+      .site-header nav {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        color: #293d31;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        padding-block: 3rem;
+      }
+
+      .page-intro {
+        margin-bottom: 2rem;
+      }
+
+      .calendar-content {
+        max-width: 70rem;
+        margin-inline: auto;
+      }
+
+      .schedule-section h2,
+      .empty-state h2 {
+        font-size: 1.35rem;
+      }
+
+      .date-form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .date-form label {
+        flex: 1 1 15rem;
+        margin-bottom: 0;
+      }
+
+      .date-form button {
+        margin-bottom: 0;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+        border-radius: var(--pico-border-radius);
+      }
+
+      .table-scroll table {
+        min-width: 58rem;
+        margin-bottom: 0;
+      }
+
+      .table-scroll th,
+      .table-scroll td {
+        vertical-align: middle;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 0.2rem 0.65rem;
+        border: 1px solid;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .status-pending {
+        border-color: #8a641c;
+        background: #fff4d6;
+        color: #684800;
+      }
+
+      .status-confirmed {
+        border-color: #42634f;
+        background: #e7f0e9;
+        color: #293d31;
+      }
+
+      .status-completed {
+        border-color: #52657a;
+        background: #eaf0f6;
+        color: #35495e;
+      }
+
+      .status-canceled {
+        border-color: #87504a;
+        background: #f7e9e6;
+        color: #683b35;
+      }
+
+      .row-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        min-width: 12rem;
+      }
+
+      .row-actions button {
+        width: auto;
+        margin: 0;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+      }
+
+      .row-actions .cancel-button {
+        --pico-background-color: #fff;
+        --pico-border-color: #87504a;
+        --pico-color: #683b35;
+        --pico-background-color-hover: #f7e9e6;
+        --pico-border-color-hover: #87504a;
+        --pico-color-hover: #683b35;
+      }
+
+      .sample-note {
+        margin-top: 1rem;
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .staff-notice {
+        margin-top: 2rem;
+        padding: 1rem;
+        border-left: 0.25rem solid var(--pico-primary);
+        background: #fff;
+      }
+
+      .staff-notice p {
+        margin: 0;
+      }
+
+      .empty-state {
+        margin-top: 3rem;
+        padding: 1.5rem;
+        border: 1px solid var(--pico-muted-border-color);
+        border-radius: var(--pico-border-radius);
+        background: #fff;
+      }
+
+      .empty-state p:last-child {
+        margin-bottom: 0;
+      }
+
+      .site-footer {
+        padding-block: 1rem;
+        text-align: center;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding-block: 2rem;
+        }
+
+        .date-form {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .date-form button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="Main navigation">
+        <a class="brand" href="services.html">Bella Vista Salon</a>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="my-appointments.html">My Appointments</a></li>
+          <li><a href="staff-calendar.html" aria-current="page">Staff Calendar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <header class="page-intro">
+        <h1>Staff Calendar</h1>
+        <p>Manage and track daily salon appointments.</p>
+      </header>
+
+      <div class="calendar-content">
+        <section class="schedule-section" aria-labelledby="schedule-heading">
+          <h2 id="schedule-heading">Daily Appointment Schedule</h2>
+
+          <form class="date-form">
+            <label for="schedule-date">
+              Select Date
+              <input
+                type="date"
+                id="schedule-date"
+                name="schedule-date"
+                value="2026-11-12"
+              >
+            </label>
+            <button type="button">View Schedule</button>
+          </form>
+
+          <div
+            class="table-scroll"
+            role="region"
+            aria-label="Daily appointment schedule"
+            tabindex="0"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Time</th>
+                  <th scope="col">Customer Name</th>
+                  <th scope="col">Contact</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>Maria Rodriguez</td>
+                  <td><a href="mailto:maria@example.com">maria@example.com</a></td>
+                  <td>Haircut</td>
+                  <td><span class="status status-pending">Pending</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Confirm</button>
+                      <button type="button" class="cancel-button">Cancel</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>10:00 AM</td>
+                  <td>Sofia Martinez</td>
+                  <td><a href="mailto:sofia@example.com">sofia@example.com</a></td>
+                  <td>Hair Coloring</td>
+                  <td><span class="status status-confirmed">Confirmed</span></td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Mark Completed</button>
+                      <button type="button" class="cancel-button">Cancel</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1:00 PM</td>
+                  <td>Elena Garcia</td>
+                  <td><a href="mailto:elena@example.com">elena@example.com</a></td>
+                  <td>Hair Styling</td>
+                  <td><span class="status status-completed">Completed</span></td>
+                  <td>No further action</td>
+                </tr>
+                <tr>
+                  <td>2:00 PM</td>
+                  <td>Andrea Lopez</td>
+                  <td><a href="mailto:andrea@example.com">andrea@example.com</a></td>
+                  <td>Manicure</td>
+                  <td><span class="status status-canceled">Canceled</span></td>
+                  <td>No further action</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="sample-note">
+            All customer records and appointments shown are illustrative sample data.
+          </p>
+        </section>
+
+        <aside class="staff-notice" aria-label="Staff notice">
+          <p>
+            Staff calendar – authorized salon staff view. Sample customer records are illustrative.
+          </p>
+        </aside>
+
+        <section class="empty-state" aria-labelledby="empty-heading">
+          <p><strong>State B – Empty Schedule Example</strong></p>
+          <h2 id="empty-heading">No Appointments Scheduled</h2>
+          <p>There are no appointments for this date.</p>
+          <p>
+            This alternative state is displayed only when the selected date has no appointments.
+            It is not displayed alongside the populated schedule in the functioning application.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Coral Gables, Florida</p>
+    </footer>
+  </body>
+</html>
