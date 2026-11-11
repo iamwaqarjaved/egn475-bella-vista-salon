@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Appointments | Bella Vista Salon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+      [data-theme="light"],
+      :root:not([data-theme="dark"]) {
+        --pico-primary: #42634f;
+        --pico-primary-background: #42634f;
+        --pico-primary-border: #42634f;
+        --pico-primary-hover: #34513f;
+        --pico-primary-hover-background: #34513f;
+        --pico-primary-hover-border: #34513f;
+        --pico-primary-focus: rgba(66, 99, 79, 0.2);
+        --pico-primary-inverse: #fff;
+      }
+
+      body {
+        background: #faf8f4;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #fff;
+      }
+
+      .site-header nav {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        color: #293d31;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        padding-block: 3rem;
+      }
+
+      .page-intro {
+        margin-bottom: 2rem;
+      }
+
+      .appointments-content {
+        max-width: 64rem;
+        margin-inline: auto;
+      }
+
+      .lookup-section {
+        margin-bottom: 2rem;
+      }
+
+      .lookup-section h2,
+      .results-section h2,
+      .empty-state h2 {
+        font-size: 1.35rem;
+      }
+
+      .lookup-form {
+        max-width: 38rem;
+      }
+
+      .lookup-form button {
+        margin-bottom: 0.5rem;
+      }
+
+      .lookup-note,
+      .sample-note {
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+        border-radius: var(--pico-border-radius);
+      }
+
+      .table-scroll table {
+        min-width: 42rem;
+        margin-bottom: 0;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 0.2rem 0.65rem;
+        border: 1px solid;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .status-pending {
+        border-color: #8a641c;
+        background: #fff4d6;
+        color: #684800;
+      }
+
+      .status-confirmed {
+        border-color: #42634f;
+        background: #e7f0e9;
+        color: #293d31;
+      }
+
+      .status-completed {
+        border-color: #52657a;
+        background: #eaf0f6;
+        color: #35495e;
+      }
+
+      .status-canceled {
+        border-color: #87504a;
+        background: #f7e9e6;
+        color: #683b35;
+      }
+
+      .sample-note {
+        margin-top: 1rem;
+      }
+
+      .page-action {
+        margin-top: 2rem;
+      }
+
+      .page-action a {
+        margin-bottom: 0;
+      }
+
+      .empty-state {
+        margin-top: 3rem;
+        padding: 1.5rem;
+        border: 1px solid var(--pico-muted-border-color);
+        border-radius: var(--pico-border-radius);
+        background: #fff;
+      }
+
+      .empty-state p:last-of-type {
+        margin-bottom: 1rem;
+      }
+
+      .site-footer {
+        padding-block: 1rem;
+        text-align: center;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      .lookup-card .help-text {
+        display: block;
+        margin-top: 0.75rem;
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding-block: 2rem;
+        }
+
+        .lookup-form button,
+        .page-action a[role="button"] {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="Main navigation">
+        <a class="brand" href="services.html">Bella Vista Salon</a>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="my-appointments.html" aria-current="page">My Appointments</a></li>
+          <li><a href="staff-calendar.html">Staff Calendar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <header class="page-intro">
+        <h1>My Appointments</h1>
+        <p>View and track your salon bookings.</p>
+      </header>
+
+      <div class="appointments-content">
+        <section class="lookup-section" aria-labelledby="lookup-heading">
+          <h2 id="lookup-heading">Find My Appointments</h2>
+          <form class="lookup-form">
+            <label for="contact-lookup">Email Address or Phone Number</label>
+            <input
+              type="text"
+              id="contact-lookup"
+              name="contact-lookup"
+              placeholder="Enter email or phone"
+              aria-describedby="lookup-note"
+            >
+            <button type="button">Find My Appointments</button>
+            <small class="lookup-note" id="lookup-note">
+              Enter the contact information used when booking. This button is for display only;
+              appointments are not retrieved.
+            </small>
+          </form>
+        </section>
+
+        <section class="results-section" aria-labelledby="results-heading">
+          <h2 id="results-heading">Appointment Results – Example</h2>
+          <p>All appointment records and dates below are illustrative sample data.</p>
+          <div
+            class="table-scroll"
+            role="region"
+            aria-label="Illustrative appointment results"
+            tabindex="0"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Service</th>
+                  <th scope="col">Appointment Date</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Duration</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Haircut</td>
+                  <td>November 12, 2026</td>
+                  <td>9:00 AM</td>
+                  <td>45 minutes</td>
+                  <td><span class="status status-pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>Hair Coloring</td>
+                  <td>November 13, 2026</td>
+                  <td>10:00 AM</td>
+                  <td>120 minutes</td>
+                  <td><span class="status status-confirmed">Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>Hair Styling</td>
+                  <td>November 8, 2026</td>
+                  <td>1:00 PM</td>
+                  <td>60 minutes</td>
+                  <td><span class="status status-completed">Completed</span></td>
+                </tr>
+                <tr>
+                  <td>Manicure</td>
+                  <td>November 9, 2026</td>
+                  <td>2:00 PM</td>
+                  <td>45 minutes</td>
+                  <td><span class="status status-canceled">Canceled</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="sample-note">
+            State A – Example shown when appointment records are available.
+          </p>
+        </section>
+
+        <nav class="page-action" aria-label="Appointment booking">
+          <a href="services.html" role="button">Book Another Appointment</a>
+        </nav>
+
+        <section class="empty-state" aria-labelledby="empty-heading">
+          <p><strong>State B – Example shown only when no appointments are found.</strong></p>
+          <h2 id="empty-heading">No Appointments Found</h2>
+          <p>No appointments found. Book your next salon visit.</p>
+          <a href="services.html">Book an Appointment</a>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Coral Gables, Florida</p>
+    </footer>
+  </body>
+</html>
