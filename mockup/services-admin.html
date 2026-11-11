@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Services Administration | Bella Vista Salon</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+      [data-theme="light"],
+      :root:not([data-theme="dark"]) {
+        --pico-primary: #42634f;
+        --pico-primary-background: #42634f;
+        --pico-primary-border: #42634f;
+        --pico-primary-hover: #34513f;
+        --pico-primary-hover-background: #34513f;
+        --pico-primary-hover-border: #34513f;
+        --pico-primary-focus: rgba(66, 99, 79, 0.2);
+        --pico-primary-inverse: #fff;
+      }
+
+      body {
+        background: #faf8f4;
+      }
+
+      .site-header,
+      .site-footer {
+        background: #fff;
+      }
+
+      .site-header nav {
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        color: #293d31;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      main {
+        padding-block: 3rem;
+      }
+
+      .page-intro {
+        margin-bottom: 2rem;
+      }
+
+      .admin-content {
+        max-width: 70rem;
+        margin-inline: auto;
+      }
+
+      .admin-section {
+        margin-bottom: 2.5rem;
+      }
+
+      .admin-section h2,
+      .empty-state h2 {
+        font-size: 1.35rem;
+      }
+
+      .service-form {
+        max-width: 48rem;
+      }
+
+      .service-form button {
+        width: auto;
+        margin-bottom: 0;
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+        border-radius: var(--pico-border-radius);
+      }
+
+      .table-scroll table {
+        min-width: 52rem;
+        margin-bottom: 0;
+      }
+
+      .table-scroll th,
+      .table-scroll td {
+        vertical-align: middle;
+      }
+
+      .row-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        min-width: 10rem;
+      }
+
+      .row-actions button {
+        width: auto;
+        margin: 0;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+      }
+
+      .row-actions .remove-button {
+        --pico-background-color: #fff;
+        --pico-border-color: #87504a;
+        --pico-color: #683b35;
+        --pico-background-color-hover: #f7e9e6;
+        --pico-border-color-hover: #87504a;
+        --pico-color-hover: #683b35;
+      }
+
+      .sample-note {
+        margin-top: 1rem;
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+      }
+
+      .staff-notice {
+        margin-top: 2rem;
+        padding: 1rem;
+        border-left: 0.25rem solid var(--pico-primary);
+        background: #fff;
+      }
+
+      .staff-notice p {
+        margin: 0;
+      }
+
+      .empty-state {
+        padding: 1.5rem;
+        border: 1px solid var(--pico-muted-border-color);
+        border-radius: var(--pico-border-radius);
+        background: #fff;
+      }
+
+      .empty-state p:last-child {
+        margin-bottom: 0;
+      }
+
+      .site-footer {
+        padding-block: 1rem;
+        text-align: center;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding-block: 2rem;
+        }
+
+        .service-form button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="Main navigation">
+        <a class="brand" href="services.html">Bella Vista Salon</a>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="choose-time.html">Choose Time</a></li>
+          <li><a href="my-appointments.html">My Appointments</a></li>
+          <li><a href="review-confirm.html">Review Confirm</a></li>
+          <li><a href="staff-calendar.html">Staff Calendar</a></li>
+          <li><a href="services-admin.html" aria-current="page">Services Admin</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <header class="page-intro">
+        <h1>Services Administration</h1>
+        <p>Manage the salon services offered to clients.</p>
+      </header>
+
+      <div class="admin-content">
+        <section class="admin-section" aria-labelledby="add-service-heading">
+          <h2 id="add-service-heading">Add New Service</h2>
+
+          <form class="service-form">
+            <label for="service-name">
+              Service Name
+              <input
+                type="text"
+                id="service-name"
+                name="service-name"
+                placeholder="e.g., Haircut"
+                required
+              >
+            </label>
+
+            <label for="service-description">
+              Description
+              <textarea
+                id="service-description"
+                name="service-description"
+                placeholder="Briefly describe the service"
+                rows="3"
+                required
+              ></textarea>
+            </label>
+
+            <label for="service-duration">
+              Duration (minutes)
+              <input
+                type="number"
+                id="service-duration"
+                name="service-duration"
+                placeholder="e.g., 45"
+                min="1"
+                step="1"
+                required
+              >
+            </label>
+
+            <label for="service-price">
+              Price ($)
+              <input
+                type="number"
+                id="service-price"
+                name="service-price"
+                placeholder="e.g., 35.00"
+                min="0"
+                step="0.01"
+                required
+              >
+            </label>
+
+            <button type="button">Add Service</button>
+            <small>Visual-only control. It does not add or change service records.</small>
+          </form>
+        </section>
+
+        <section class="admin-section" aria-labelledby="existing-services-heading">
+          <h2 id="existing-services-heading">Existing Services</h2>
+          <p>All service records and prices below are illustrative sample data.</p>
+
+          <div
+            class="table-scroll"
+            role="region"
+            aria-label="Existing illustrative services"
+            tabindex="0"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Service Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Duration</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Haircut</td>
+                  <td>Professional haircut</td>
+                  <td>45 minutes</td>
+                  <td>$35</td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Edit</button>
+                      <button type="button" class="remove-button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Hair Coloring</td>
+                  <td>Hair coloring and treatment</td>
+                  <td>120 minutes</td>
+                  <td>$90</td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Edit</button>
+                      <button type="button" class="remove-button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Hair Styling</td>
+                  <td>Professional hair styling</td>
+                  <td>60 minutes</td>
+                  <td>$50</td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Edit</button>
+                      <button type="button" class="remove-button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Manicure</td>
+                  <td>Nail care and treatment</td>
+                  <td>45 minutes</td>
+                  <td>$30</td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Edit</button>
+                      <button type="button" class="remove-button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="sample-note">
+            Add, Edit, and Remove controls are visual-only and do not modify records.
+          </p>
+        </section>
+
+        <section class="empty-state" aria-labelledby="empty-state-heading">
+          <p><strong>State B – Alternative Empty-State Example</strong></p>
+          <h2 id="empty-state-heading">No Services Available</h2>
+          <p>No salon services have been added yet.</p>
+          <p>
+            This example is displayed only when no services exist. It is not displayed
+            alongside the populated services table in the functioning application.
+          </p>
+        </section>
+
+        <aside class="staff-notice" aria-label="Staff notice">
+          <p>
+            Services administration – authorized salon staff only. All service details
+            and prices are illustrative sample data.
+          </p>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Coral Gables, Florida</p>
+    </footer>
+  </body>
+</html>
