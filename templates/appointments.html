@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}My Appointments | Bella Vista Salon{% endblock %}
+
+{% block styles %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/appointments.css') }}"
+  >
+{% endblock %}
+
+{% block content %}
+  <header class="page-intro">
+    <h1>My Appointments</h1>
+    <p>View and track your salon bookings.</p>
+  </header>
+
+  <div class="appointments-content">
+    <section class="lookup-section" aria-labelledby="lookup-heading">
+      <h2 id="lookup-heading">Find My Appointments</h2>
+      <form
+        class="lookup-form"
+        action="{{ url_for('appointment_history') }}"
+        method="get"
+      >
+        <label for="contact">Email Address or Phone Number</label>
+        <input
+          type="text"
+          id="contact"
+          name="contact"
+          value="{{ contact_query }}"
+          placeholder="Enter email or phone"
+          aria-describedby="lookup-note"
+        >
+        <button type="submit">Find My Appointments</button>
+        <small class="lookup-note" id="lookup-note">
+          Enter the contact information used when booking.
+        </small>
+      </form>
+    </section>
+
+    {% if appointments %}
+      <section class="results-section" aria-labelledby="results-heading">
+        <h2 id="results-heading">Appointment Results</h2>
+        <p>All appointment records and dates below are illustrative sample data.</p>
+        <div
+          class="table-scroll"
+          role="region"
+          aria-label="Appointment results"
+          tabindex="0"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Service</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in appointments %}
+                <tr>
+                  <td>{{ appointment.service_name }}</td>
+                  <td>{{ appointment.appointment_date }}</td>
+                  <td>{{ appointment.appointment_time }}</td>
+                  <td>{{ appointment.duration_minutes }} minutes</td>
+                  <td>
+                    <span class="status status-{{ appointment.status|lower }}">
+                      {{ appointment.status }}
+                    </span>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    {% else %}
+      <section class="empty-state" aria-labelledby="empty-heading">
+        <h2 id="empty-heading">No Appointments Found.</h2>
+        <p>No appointments found. Book your next salon visit.</p>
+        <a href="{{ url_for('book') }}" role="button">Book Another Appointment</a>
+      </section>
+    {% endif %}
+  </div>
+{% endblock %}

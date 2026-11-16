@@ -1,0 +1,94 @@
+.page-intro {
+  margin-bottom: 2rem;
+}
+
+.appointments-content {
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+.lookup-section {
+  margin-bottom: 2rem;
+}
+
+.lookup-section h2,
+.results-section h2,
+.empty-state h2 {
+  font-size: 1.35rem;
+}
+
+.lookup-form {
+  max-width: 38rem;
+}
+
+.lookup-form button {
+  margin-bottom: 0.5rem;
+}
+
+.lookup-note {
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border-radius: var(--pico-border-radius);
+}
+
+.table-scroll table {
+  min-width: 42rem;
+  margin-bottom: 0;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-pending {
+  border-color: #8a641c;
+  background: #fff4d6;
+  color: #684800;
+}
+
+.status-confirmed {
+  border-color: #42634f;
+  background: #e7f0e9;
+  color: #293d31;
+}
+
+.status-completed {
+  border-color: #52657a;
+  background: #eaf0f6;
+  color: #35495e;
+}
+
+.status-canceled {
+  border-color: #87504a;
+  background: #f7e9e6;
+  color: #683b35;
+}
+
+.empty-state {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background: #fff;
+}
+
+.empty-state p:last-of-type {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .lookup-form button,
+  .empty-state a[role="button"] {
+    width: 100%;
+  }
+}

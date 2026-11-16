@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, abort, render_template, request
 
 SERVICES = [
@@ -52,6 +54,53 @@ APPOINTMENT_SLOTS = [
     {"time": "1:00 PM", "available": True},
     {"time": "2:00 PM", "available": True},
     {"time": "3:00 PM", "available": True},
+]
+
+APPOINTMENTS = [
+    {
+        "id": 1,
+        "customer_name": "Maria Rodriguez",
+        "email": "maria@example.com",
+        "phone": "202-555-0101",
+        "service_name": "Haircut",
+        "appointment_date": "November 12, 2026",
+        "appointment_time": "9:00 AM",
+        "duration_minutes": 45,
+        "status": "Pending",
+    },
+    {
+        "id": 2,
+        "customer_name": "Sofia Martinez",
+        "email": "sofia@example.com",
+        "phone": "202-555-0102",
+        "service_name": "Hair Coloring",
+        "appointment_date": "November 13, 2026",
+        "appointment_time": "10:00 AM",
+        "duration_minutes": 120,
+        "status": "Confirmed",
+    },
+    {
+        "id": 3,
+        "customer_name": "Elena Garcia",
+        "email": "elena@example.com",
+        "phone": "202-555-0103",
+        "service_name": "Hair Styling",
+        "appointment_date": "November 8, 2026",
+        "appointment_time": "1:00 PM",
+        "duration_minutes": 60,
+        "status": "Completed",
+    },
+    {
+        "id": 4,
+        "customer_name": "Andrea Lopez",
+        "email": "andrea@example.com",
+        "phone": "202-555-0104",
+        "service_name": "Manicure",
+        "appointment_date": "November 9, 2026",
+        "appointment_time": "2:00 PM",
+        "duration_minutes": 45,
+        "status": "Canceled",
+    },
 ]
 
 app = Flask(__name__)
@@ -127,4 +176,29 @@ def booking_review():
         service=service,
         appointment_date=request.args.get("appointment_date", ""),
         appointment_time=request.args.get("appointment_time", ""),
+    )
+
+
+@app.route("/appointments")
+def appointment_history():
+    contact_query = request.args.get("contact", "").strip()
+    if contact_query:
+        normalized_contact = contact_query.casefold()
+        normalized_phone = re.sub(r"\D", "", contact_query)
+        appointments = [
+            appointment
+            for appointment in APPOINTMENTS
+            if appointment["email"].casefold() == normalized_contact
+            or (
+                normalized_phone
+                and re.sub(r"\D", "", appointment["phone"]) == normalized_phone
+            )
+        ]
+    else:
+        appointments = APPOINTMENTS.copy()
+
+    return render_template(
+        "appointments.html",
+        appointments=appointments,
+        contact_query=contact_query,
     )
