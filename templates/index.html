@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome | Bella Vista Salon{% endblock %}
+
+{% block content %}
+  <h1>Bella Vista Salon</h1>
+  <p>Welcome to Bella Vista Salon. We look forward to helping you feel your best.</p>
+  <p><a href="{{ url_for('services') }}" role="button">Explore our services</a></p>
+{% endblock %}
