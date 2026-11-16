@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Calendar | Bella Vista Salon{% endblock %}
+
+{% block styles %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/calendar.css') }}"
+  >
+{% endblock %}
+
+{% block content %}
+  <header class="page-intro">
+    <h1>Staff Calendar</h1>
+    <p>Manage and track daily salon appointments.</p>
+  </header>
+
+  <div class="calendar-content">
+    <section class="schedule-section" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading">Daily Appointment Schedule</h2>
+      <form
+        class="date-form"
+        action="{{ url_for('staff_calendar') }}"
+        method="get"
+      >
+        <label for="schedule-date">Select Date</label>
+        <input
+          type="date"
+          id="schedule-date"
+          name="date"
+          value="{{ selected_date }}"
+          required
+        >
+        <button type="submit">View Schedule</button>
+      </form>
+
+      <p class="schedule-date">Schedule for {{ human_readable_date }}</p>
+
+      {% if appointments %}
+        <p class="sample-note" id="actions-note">
+          All records are illustrative. Action controls are visual only and do not update
+          appointment statuses or save changes.
+        </p>
+        <div
+          class="table-scroll"
+          role="region"
+          aria-label="Daily appointment schedule"
+          tabindex="0"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Service</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in appointments %}
+                <tr>
+                  <td>{{ appointment.appointment_time }}</td>
+                  <td>{{ appointment.customer_name }}</td>
+                  <td>{{ appointment.email }}</td>
+                  <td>{{ appointment.service_name }}</td>
+                  <td>
+                    <span class="status status-{{ appointment.status|lower }}">
+                      {{ appointment.status }}
+                    </span>
+                  </td>
+                  <td>
+                    {% if appointment.status == "Pending" %}
+                      <div class="row-actions">
+                        <button type="button" aria-describedby="actions-note">Confirm</button>
+                        <button
+                          type="button"
+                          class="cancel-button"
+                          aria-describedby="actions-note"
+                        >Cancel</button>
+                      </div>
+                    {% elif appointment.status == "Confirmed" %}
+                      <div class="row-actions">
+                        <button type="button" aria-describedby="actions-note">Mark Completed</button>
+                        <button
+                          type="button"
+                          class="cancel-button"
+                          aria-describedby="actions-note"
+                        >Cancel</button>
+                      </div>
+                    {% else %}
+                      No further action
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="sample-note">
+          All customer records and appointments shown are illustrative sample data.
+        </p>
+      {% else %}
+        <section class="empty-state" aria-labelledby="empty-heading">
+          <h2 id="empty-heading">No Appointments Scheduled</h2>
+          <p>There are no appointments for this date.</p>
+        </section>
+      {% endif %}
+    </section>
+  </div>
+{% endblock %}

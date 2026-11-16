@@ -1,4 +1,5 @@
 import re
+from datetime import date, datetime
 
 from flask import Flask, abort, render_template, request
 
@@ -64,6 +65,7 @@ APPOINTMENTS = [
         "phone": "202-555-0101",
         "service_name": "Haircut",
         "appointment_date": "November 12, 2026",
+        "appointment_date_iso": "2026-11-12",
         "appointment_time": "9:00 AM",
         "duration_minutes": 45,
         "status": "Pending",
@@ -75,6 +77,7 @@ APPOINTMENTS = [
         "phone": "202-555-0102",
         "service_name": "Hair Coloring",
         "appointment_date": "November 13, 2026",
+        "appointment_date_iso": "2026-11-13",
         "appointment_time": "10:00 AM",
         "duration_minutes": 120,
         "status": "Confirmed",
@@ -86,6 +89,7 @@ APPOINTMENTS = [
         "phone": "202-555-0103",
         "service_name": "Hair Styling",
         "appointment_date": "November 8, 2026",
+        "appointment_date_iso": "2026-11-08",
         "appointment_time": "1:00 PM",
         "duration_minutes": 60,
         "status": "Completed",
@@ -97,9 +101,34 @@ APPOINTMENTS = [
         "phone": "202-555-0104",
         "service_name": "Manicure",
         "appointment_date": "November 9, 2026",
+        "appointment_date_iso": "2026-11-09",
         "appointment_time": "2:00 PM",
         "duration_minutes": 45,
         "status": "Canceled",
+    },
+    {
+        "id": 5,
+        "customer_name": "Carlos Rivera",
+        "email": "carlos@example.com",
+        "phone": "202-555-0105",
+        "service_name": "Pedicure",
+        "appointment_date": "November 12, 2026",
+        "appointment_date_iso": "2026-11-12",
+        "appointment_time": "10:00 AM",
+        "duration_minutes": 60,
+        "status": "Confirmed",
+    },
+    {
+        "id": 6,
+        "customer_name": "Isabella Torres",
+        "email": "isabella@example.com",
+        "phone": "202-555-0106",
+        "service_name": "Facial",
+        "appointment_date": "November 12, 2026",
+        "appointment_date_iso": "2026-11-12",
+        "appointment_time": "1:00 PM",
+        "duration_minutes": 60,
+        "status": "Pending",
     },
 ]
 
@@ -201,4 +230,34 @@ def appointment_history():
         "appointments.html",
         appointments=appointments,
         contact_query=contact_query,
+    )
+
+
+@app.route("/calendar")
+def staff_calendar():
+    selected_date = request.args.get("date", "2026-11-12")
+    try:
+        parsed_date = date.fromisoformat(selected_date)
+    except ValueError:
+        abort(400)
+
+    appointments = [
+        appointment
+        for appointment in APPOINTMENTS
+        if appointment["appointment_date_iso"] == selected_date
+    ]
+    appointments.sort(
+        key=lambda appointment: datetime.strptime(
+            appointment["appointment_time"],
+            "%I:%M %p",
+        )
+    )
+
+    return render_template(
+        "calendar.html",
+        appointments=appointments,
+        selected_date=selected_date,
+        human_readable_date=(
+            f"{parsed_date:%B} {parsed_date.day}, {parsed_date.year}"
+        ),
     )

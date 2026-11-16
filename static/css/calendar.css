@@ -1,0 +1,135 @@
+.page-intro {
+  margin-bottom: 2rem;
+}
+
+.calendar-content {
+  max-width: 70rem;
+  margin-inline: auto;
+}
+
+.schedule-section h2,
+.empty-state h2 {
+  font-size: 1.35rem;
+}
+
+.date-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.date-form label {
+  flex: 1 1 15rem;
+  margin-bottom: 0;
+}
+
+.date-form button {
+  margin-bottom: 0;
+}
+
+.schedule-date {
+  font-weight: 600;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border-radius: var(--pico-border-radius);
+}
+
+.table-scroll table {
+  min-width: 58rem;
+  margin-bottom: 0;
+}
+
+.table-scroll th,
+.table-scroll td {
+  vertical-align: middle;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-pending {
+  border-color: #8a641c;
+  background: #fff4d6;
+  color: #684800;
+}
+
+.status-confirmed {
+  border-color: #42634f;
+  background: #e7f0e9;
+  color: #293d31;
+}
+
+.status-completed {
+  border-color: #52657a;
+  background: #eaf0f6;
+  color: #35495e;
+}
+
+.status-canceled {
+  border-color: #87504a;
+  background: #f7e9e6;
+  color: #683b35;
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-width: 12rem;
+}
+
+.row-actions button {
+  width: auto;
+  margin: 0;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.row-actions .cancel-button {
+  --pico-background-color: #fff;
+  --pico-border-color: #87504a;
+  --pico-color: #683b35;
+  --pico-background-color-hover: #f7e9e6;
+  --pico-border-color-hover: #87504a;
+  --pico-color-hover: #683b35;
+}
+
+.sample-note {
+  margin-top: 1rem;
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  background: #fff;
+}
+
+.empty-state p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .date-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .date-form button {
+    width: 100%;
+  }
+}
