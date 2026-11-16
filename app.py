@@ -1,4 +1,4 @@
-from flask import Flask, abort, render_template
+from flask import Flask, abort, render_template, request
 
 SERVICES = [
     {
@@ -45,6 +45,15 @@ SERVICES = [
     },
 ]
 
+APPOINTMENT_SLOTS = [
+    {"time": "9:00 AM", "available": True},
+    {"time": "10:00 AM", "available": True},
+    {"time": "11:00 AM", "available": False},
+    {"time": "1:00 PM", "available": True},
+    {"time": "2:00 PM", "available": True},
+    {"time": "3:00 PM", "available": True},
+]
+
 app = Flask(__name__)
 
 
@@ -68,3 +77,54 @@ def service_detail(service_id):
         abort(404)
 
     return render_template("service_detail.html", service=service)
+
+
+@app.route("/book")
+def book():
+    raw_service_id = request.args.get("service_id")
+    selected_service = None
+    if raw_service_id is not None:
+        try:
+            service_id = int(raw_service_id)
+        except ValueError:
+            abort(404)
+
+        selected_service = next(
+            (item for item in SERVICES if item["id"] == service_id),
+            None,
+        )
+        if selected_service is None:
+            abort(404)
+
+    return render_template(
+        "book.html",
+        SERVICES=SERVICES,
+        selected_service=selected_service,
+        appointment_slots=APPOINTMENT_SLOTS,
+    )
+
+
+@app.route("/book/review")
+def booking_review():
+    raw_service_id = request.args.get("service_id")
+    if raw_service_id is None:
+        abort(404)
+
+    try:
+        service_id = int(raw_service_id)
+    except ValueError:
+        abort(404)
+
+    service = next(
+        (item for item in SERVICES if item["id"] == service_id),
+        None,
+    )
+    if service is None:
+        abort(404)
+
+    return render_template(
+        "review_confirm.html",
+        service=service,
+        appointment_date=request.args.get("appointment_date", ""),
+        appointment_time=request.args.get("appointment_time", ""),
+    )

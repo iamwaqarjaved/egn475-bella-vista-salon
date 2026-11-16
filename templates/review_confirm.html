@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Review Your Appointment | Bella Vista Salon{% endblock %}
+
+{% block styles %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/booking.css') }}"
+  >
+{% endblock %}
+
+{% block content %}
+  <header class="page-intro">
+    <h1>Review Your Appointment</h1>
+    <p>Please review your booking details before confirming.</p>
+  </header>
+
+  <div class="review-content">
+    <article class="appointment-summary" aria-labelledby="summary-heading">
+      <h2 id="summary-heading">Appointment Summary</h2>
+      <dl class="appointment-details">
+        <div>
+          <dt>Selected Service</dt>
+          <dd>{{ service.name }}</dd>
+        </div>
+        <div>
+          <dt>Description</dt>
+          <dd>{{ service.description }}</dd>
+        </div>
+        <div>
+          <dt>Duration</dt>
+          <dd>{{ service.duration_minutes }} minutes</dd>
+        </div>
+        <div>
+          <dt>Price</dt>
+          <dd>${{ "%.2f"|format(service.price_cents / 100) }}</dd>
+        </div>
+        <div>
+          <dt>Appointment Date</dt>
+          <dd>{{ appointment_date or "Not selected" }}</dd>
+        </div>
+        <div>
+          <dt>Appointment Time</dt>
+          <dd>{{ appointment_time or "Not selected" }}</dd>
+        </div>
+      </dl>
+      <p class="sample-note">
+        Appointment details and prices are illustrative sample information.
+      </p>
+    </article>
+
+    <section class="client-information" aria-labelledby="client-heading">
+      <h2 id="client-heading">Client Information</h2>
+      <label for="full-name">Full Name</label>
+      <input type="text" id="full-name" autocomplete="name">
+
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        autocomplete="email"
+        aria-describedby="contact-note"
+      >
+
+      <label for="phone">Phone Number</label>
+      <input
+        type="tel"
+        id="phone"
+        autocomplete="tel"
+        aria-describedby="contact-note"
+      >
+      <small id="contact-note">
+        At least one valid contact method is required: email address or phone number.
+      </small>
+    </section>
+
+    <aside class="booking-notice" aria-label="Booking status and notice">
+      <p>Your appointment request will require staff confirmation.</p>
+      <p><strong>Illustrative initial status:</strong> Pending</p>
+      <p>No appointment has been saved or submitted.</p>
+    </aside>
+
+    <nav class="form-actions" aria-label="Appointment actions">
+      <a href="{{ url_for('book', service_id=service.id) }}">Back to Availability</a>
+      <button type="button">Confirm Appointment</button>
+    </nav>
+  </div>
+{% endblock %}

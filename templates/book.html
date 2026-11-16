@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Book an Appointment | Bella Vista Salon{% endblock %}
+
+{% block styles %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/booking.css') }}"
+  >
+{% endblock %}
+
+{% block content %}
+  <header class="page-intro">
+    <h1>Book an Appointment</h1>
+    <p>Select your service, preferred date, and available time.</p>
+  </header>
+
+  <form
+    class="booking-form"
+    action="{{ url_for('booking_review') }}"
+    method="get"
+  >
+    <label for="service-id">Select a Service</label>
+    <select id="service-id" name="service_id" required>
+      <option value="" disabled {% if not selected_service %}selected{% endif %}>
+        Choose a service
+      </option>
+      {% for service in SERVICES %}
+        <option
+          value="{{ service.id }}"
+          {% if selected_service and service.id == selected_service.id %}selected{% endif %}
+        >
+          {{ service.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <label for="appointment-date">Choose Appointment Date</label>
+    <input
+      type="date"
+      id="appointment-date"
+      name="appointment_date"
+      required
+    >
+
+    <fieldset>
+      <legend>Available Appointment Times</legend>
+      <p id="time-slot-note">
+        Displayed times are illustrative; 11:00 AM is unavailable.
+      </p>
+      <div class="time-slots">
+        {% for slot in appointment_slots %}
+          <label class="time-slot{% if not slot.available %} unavailable{% endif %}">
+            <input
+              type="radio"
+              name="appointment_time"
+              value="{{ slot.time }}"
+              aria-describedby="time-slot-note"
+              {% if slot.available %}required{% else %}disabled{% endif %}
+            >
+            {{ slot.time }}
+          </label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <div class="availability-legend" aria-label="Time slot availability legend">
+      <span><span class="legend-swatch" aria-hidden="true"></span>Available</span>
+      <span>
+        <span class="legend-swatch unavailable" aria-hidden="true"></span>
+        Unavailable
+      </span>
+    </div>
+
+    <nav class="form-actions" aria-label="Booking actions">
+      <a href="{{ url_for('services') }}">Back to Services</a>
+      <button type="submit">Continue to Review</button>
+    </nav>
+  </form>
+{% endblock %}
