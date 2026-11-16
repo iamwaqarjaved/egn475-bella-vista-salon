@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Services Administration | Bella Vista Salon{% endblock %}
+
+{% block styles %}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/services_admin.css') }}"
+  >
+{% endblock %}
+
+{% block content %}
+  <header class="page-intro">
+    <h1>Services Administration</h1>
+    <p>Manage the salon services offered to clients.</p>
+  </header>
+
+  <div class="admin-content">
+    <section class="admin-section" aria-labelledby="add-service-heading">
+      <h2 id="add-service-heading">Add New Service</h2>
+      <div class="service-form" aria-describedby="add-service-note">
+        <div class="service-fields">
+          <div class="form-field">
+            <label for="service-name">Service Name</label>
+            <input
+              type="text"
+              id="service-name"
+              name="service_name"
+              placeholder="e.g., Haircut"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="service-description">Description</label>
+            <textarea
+              id="service-description"
+              name="description"
+              placeholder="Briefly describe the service"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-field">
+            <label for="service-duration">Duration (minutes)</label>
+            <input
+              type="number"
+              id="service-duration"
+              name="duration_minutes"
+              placeholder="e.g., 45"
+              min="1"
+              step="1"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="service-price">Price ($)</label>
+            <input
+              type="number"
+              id="service-price"
+              name="price"
+              placeholder="e.g., 35.00"
+              min="0"
+              step="0.01"
+            >
+          </div>
+        </div>
+
+        <div class="service-actions">
+          <button type="button">Add Service</button>
+          <small id="add-service-note">
+            Visual-only controls. This form does not submit or modify service records.
+          </small>
+        </div>
+      </div>
+    </section>
+
+    {% if services %}
+      <section class="admin-section" aria-labelledby="existing-services-heading">
+        <h2 id="existing-services-heading">Existing Services</h2>
+        <p>All service details and prices shown are illustrative sample data.</p>
+        <div
+          class="table-scroll"
+          role="region"
+          aria-label="Existing illustrative services"
+          tabindex="0"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Service Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for service in services %}
+                <tr>
+                  <td>{{ service.name }}</td>
+                  <td>{{ service.description }}</td>
+                  <td>{{ service.duration_minutes }} minutes</td>
+                  <td>${{ "%.2f"|format(service.price_cents / 100) }}</td>
+                  <td>
+                    <div class="row-actions">
+                      <button type="button">Edit</button>
+                      <button type="button" class="remove-button">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="sample-note">
+          Edit and Remove controls are visual-only and do not modify service records.
+        </p>
+      </section>
+    {% else %}
+      <section class="empty-state" aria-labelledby="empty-services-heading">
+        <h2 id="empty-services-heading">No Services Available</h2>
+        <p>No salon services have been added yet.</p>
+      </section>
+    {% endif %}
+
+    <aside class="staff-notice" aria-label="Staff notice">
+      <p>Services administration – authorized salon staff only. All service details and prices are illustrative sample data.</p>
+    </aside>
+  </div>
+{% endblock %}

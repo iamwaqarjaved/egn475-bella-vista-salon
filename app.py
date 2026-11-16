@@ -145,6 +145,11 @@ def services():
     return render_template("services.html", services=SERVICES)
 
 
+@app.route("/services/admin")
+def services_admin():
+    return render_template("services_admin.html", services=SERVICES)
+
+
 @app.route("/services/<int:service_id>")
 def service_detail(service_id):
     service = next(
