@@ -1,0 +1,33 @@
+.page-intro {
+  margin-bottom: 2rem;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.service-card h2 {
+  font-size: 1.35rem;
+}
+
+.service-details {
+  color: var(--pico-muted-color);
+}
+
+.service-card a[role="button"] {
+  margin-top: auto;
+}
+
+@media (max-width: 700px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.name }} | Bella Vista Salon{% endblock %}
+
+{% block content %}
+  <article>
+    <h1>{{ service.name }}</h1>
+    <p>{{ service.description }}</p>
+    <p><strong>Duration:</strong> {{ service.duration_minutes }} minutes</p>
+    <p><strong>Price:</strong> ${{ "%.2f"|format(service.price_cents / 100) }}</p>
+    <a href="{{ url_for('services') }}">Back to Services</a>
+  </article>
+{% endblock %}
