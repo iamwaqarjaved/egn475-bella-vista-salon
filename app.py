@@ -1,8 +1,10 @@
 import os
 import re
+import sqlite3
 from datetime import date, datetime
+from decimal import Decimal, InvalidOperation
 
-from flask import Flask, abort, render_template, request
+from flask import Flask, abort, redirect, render_template, request, url_for
 
 import db
 
@@ -166,6 +168,66 @@ def services():
 @app.route("/services/admin")
 def services_admin():
     return render_template("services_admin.html", services=SERVICES)
+
+
+@app.route("/admin/services/new", methods=["GET", "POST"])
+def create_service():
+    if request.method == "GET":
+        return render_template("service_new.html", form_data={}, error=None)
+
+    form_data = {
+        "name": request.form.get("name", ""),
+        "description": request.form.get("description", ""),
+        "duration_minutes": request.form.get("duration_minutes", ""),
+        "price": request.form.get("price", ""),
+    }
+
+    def render_form_error(message):
+        return (
+            render_template(
+                "service_new.html",
+                form_data=form_data,
+                error=message,
+            ),
+            400,
+        )
+
+    name = form_data["name"].strip()
+    description = form_data["description"].strip()
+    if not name:
+        return render_form_error("Service name is required.")
+    if not description:
+        return render_form_error("Service description is required.")
+
+    try:
+        duration_minutes = int(form_data["duration_minutes"])
+        price = Decimal(form_data["price"])
+    except (InvalidOperation, ValueError):
+        return render_form_error("Enter a whole number for duration and a valid price.")
+
+    if duration_minutes <= 0 or not price.is_finite() or price < 0:
+        return render_form_error("Duration must be positive and price non-negative.")
+
+    price_in_cents = price * 100
+    if price_in_cents != price_in_cents.to_integral_value():
+        return render_form_error("Price must have no more than two decimal places.")
+
+    database = db.get_db()
+    try:
+        database.execute(
+            """
+            INSERT INTO services (name, description, duration_minutes, price_cents)
+            VALUES (?, ?, ?, ?)
+            """,
+            (name, description, duration_minutes, int(price_in_cents)),
+        )
+    except sqlite3.IntegrityError as error:
+        if str(error) != "UNIQUE constraint failed: services.name":
+            raise
+        return render_form_error("A service with this name already exists.")
+
+    database.commit()
+    return redirect(url_for("services"))
 
 
 @app.route("/services/<int:service_id>")
