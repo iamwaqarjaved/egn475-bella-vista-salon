@@ -1,7 +1,10 @@
+import os
 import re
 from datetime import date, datetime
 
 from flask import Flask, abort, render_template, request
+
+import db
 
 SERVICES = [
     {
@@ -133,6 +136,9 @@ APPOINTMENTS = [
 ]
 
 app = Flask(__name__)
+os.makedirs(app.instance_path, exist_ok=True)
+app.config["DATABASE"] = os.path.join(app.instance_path, "salon.sqlite")
+db.init_app(app)
 
 
 @app.route("/")
