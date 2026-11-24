@@ -148,7 +148,19 @@ def home():
 
 @app.route("/services")
 def services():
-    return render_template("services.html", services=SERVICES)
+    services = (
+        db.get_db()
+        .execute(
+            """
+            SELECT id, name, description, duration_minutes, price_cents
+            FROM services
+            WHERE active = 1
+            ORDER BY name
+            """
+        )
+        .fetchall()
+    )
+    return render_template("services.html", services=services)
 
 
 @app.route("/services/admin")
@@ -158,10 +170,10 @@ def services_admin():
 
 @app.route("/services/<int:service_id>")
 def service_detail(service_id):
-    service = next(
-        (item for item in SERVICES if item["id"] == service_id),
-        None,
-    )
+    service = db.get_db().execute(
+        "SELECT * FROM services WHERE id = ? AND active = 1",
+        (service_id,),
+    ).fetchone()
     if service is None:
         abort(404)
 
